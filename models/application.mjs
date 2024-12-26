@@ -1,5 +1,10 @@
 import { model, Schema, SchemaTypes } from "mongoose";
 const applicationSchema = new Schema({
+  userId: {
+    type: SchemaTypes.ObjectId,
+    ref: "user",
+    required: true,
+  },
   date_of_birth: { type: SchemaTypes.String },
   gender: { type: SchemaTypes.String },
   full_name: { type: SchemaTypes.String },

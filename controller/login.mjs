@@ -163,12 +163,11 @@ export const newApplicationController = async (req, res, next) => {
     }
   }
 };
-export const getApplicationData = (req, res, next) => {
-  const body = req.params; // the userId is in the link extract it from there
-  //here i will accept the userid and check it with the application database and if the user application exists then i will send the datas needed
-  // i need to create a application model to check the userId
-  console.log("trying fetching the application form");
-  if (body.userId) {
+export const getApplicationData = async (req, res, next) => {
+  const query = req.query.userId;
+  const userObjectID = new mongoose.Types.ObjectId(query);
+  const getApplication = await application.findOne({ userId: userObjectID });
+  if (query.userId) {
     return res
       .status(200)
       .json({ message: "successfully fetched the application form!" });

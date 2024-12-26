@@ -21,5 +21,6 @@ const applicationSchema = new Schema({
   contact_number: { type: SchemaTypes.String },
   email: { type: SchemaTypes.String },
   image_path: { type: SchemaTypes.String },
+  status: { type: SchemaTypes.String, default: "is pending" },
 });
 export const application = model("application", applicationSchema);

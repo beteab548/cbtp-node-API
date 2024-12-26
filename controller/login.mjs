@@ -166,14 +166,24 @@ export const newApplicationController = async (req, res, next) => {
 export const getApplicationData = async (req, res, next) => {
   const query = req.query.userId;
   const userObjectID = new mongoose.Types.ObjectId(query);
-  const getApplication = await application.findOne({ userId: userObjectID });
-  if (query.userId) {
-    return res
-      .status(200)
-      .json({ message: "successfully fetched the application form!" });
+  const applicationExisting = await application.findOne({
+    userId: userObjectID,
+  });
+  if (applicationExisting) {
+    const applicationData = {
+      application_number: applicationExisting._id,
+      name: applicationExisting.full_name,
+      mobile_number: applicationExisting.contact_number,
+      fathers_name: applicationExisting.full_name_of_father,
+      status: applicationExisting.status,
+    };
+    return res.status(200).json({
+      message: "successfully fetched the application form!",
+      data: applicationData,
+    });
   } else {
     return res
       .status(400)
-      .json({ message: "error sending the application form!" });
+      .json({ message: "there is no application yet!", data: [] });
   }
 };

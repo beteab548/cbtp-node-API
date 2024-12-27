@@ -4,5 +4,6 @@ const residencySchema = new Schema({
   address: { type: SchemaTypes.String },
   name: { type: SchemaTypes.String },
   mobileNo: { type: SchemaTypes.String },
+  certificate: { type: SchemaTypes.String, default: "empty" },
 });
 export const residency = model("residency", residencySchema);
